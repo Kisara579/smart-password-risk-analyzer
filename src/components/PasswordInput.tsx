@@ -1,7 +1,13 @@
-import React from "react";
+import { Field, Input } from "@chakra-ui/react";
 
 function PasswordInput() {
-  return <div>PasswordInput</div>;
+  return (
+    <>
+      <Field.Root>
+        <Input placeholder="Enter Your Password" type="password" />
+      </Field.Root>
+    </>
+  );
 }
 
 export default PasswordInput;
