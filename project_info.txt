@@ -1,0 +1,30 @@
+Project Name: Smart Password Risk Analyzer
+
+Description:
+This project analyzes password strength using rule-based
+and AI-inspired logic. It evaluates password length,
+character variety, common patterns, and known weak
+passwords to calculate a risk score.
+
+Purpose:
+The goal of this project is to promote secure password
+practices and demonstrate cybersecurity awareness
+without storing or transmitting any user data.
+
+Key Features:
+- Password risk scoring
+- Human-readable explanations
+- Detection of weak patterns
+- Beginner-friendly AI-style logic
+
+Ethical Notice:
+This tool does NOT store, log, or send passwords.
+All analysis happens locally in the browser.
+
+Future Improvements:
+- Crack time estimation
+- Machine learning-based classification
+- Backend integration (optional)
+
+Author:
+[Your Name]
