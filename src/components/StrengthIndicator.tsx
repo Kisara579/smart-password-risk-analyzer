@@ -8,7 +8,9 @@ interface StrengthProps {
 }
 
 function StrengthIndicator({ strength }: StrengthProps) {
+
   let fillcolor: string;
+  
   if (!strength) {
     fillcolor = "gray.300";
   } else if (strength.value === "weak") {
