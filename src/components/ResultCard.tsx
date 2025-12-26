@@ -8,6 +8,7 @@ function ResultCard() {
   const [analysis, setAnalysis] = useState<{
     score: number;
     issues: string[];
+    crackTime: string;
   } | null>(null);
 
   const handleAnalyze = () => {
@@ -20,6 +21,7 @@ function ResultCard() {
         <Card.Body>
           <PasswordInput password={password} setPassword={setPassword} />
           <Button
+            disabled={!password}
             bg={"teal.600"}
             marginTop={"0.75rem"}
             width={"100%"}
@@ -36,6 +38,7 @@ function ResultCard() {
             <VStack align="start" gap={"10px"} margin={"1rem"}>
               <Text>Score: {analysis.score}</Text>
               <Text>Issues: {analysis.issues.join(", ")}</Text>
+              <Text>Estimated Crack Time: {analysis.crackTime}</Text>
             </VStack>
           )}
         </Card.Body>

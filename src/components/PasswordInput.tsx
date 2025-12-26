@@ -43,6 +43,7 @@ function PasswordInput({ password, setPassword }: PasswordInputProps) {
           <InputGroup width="100%">
             <Flex flexDirection={"row"} position={"relative"} width="100%">
               <Input
+                autoComplete="new-password"
                 placeholder="Enter Your Password"
                 type={show ? "text" : "password"}
                 paddingRight={"5rem"}
@@ -64,7 +65,7 @@ function PasswordInput({ password, setPassword }: PasswordInputProps) {
               </InputElement>
             </Flex>
           </InputGroup>
-          <StrengthIndicator strength={strength ?? undefined} />
+          <StrengthIndicator strength={strength || undefined} />
         </Stack>
       </Field.Root>
     </>
