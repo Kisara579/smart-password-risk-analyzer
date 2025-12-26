@@ -56,7 +56,7 @@ function PasswordInput() {
               </InputElement>
             </Flex>
           </InputGroup>
-          <StrengthIndicator />
+          <StrengthIndicator strength={strength} />
         </Stack>
       </Field.Root>
     </>
