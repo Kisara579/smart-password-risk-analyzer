@@ -42,8 +42,8 @@ function ResultCard() {
     NO_SYMBOL: "Add at least one symbol",
     TOO_SHORT: "Password is too short",
     NO_SPECIAL_CHAR: "Add at least one special character",
-    REPETED_CHARS: "Avoid using repeated characters",
-    SEQUENTIAL_CHARS: "Avoid using sequential characters",
+    REPEATED_CHARS: "Avoid using repeated characters",
+    SEQUENTIAL_PATTERN: "Avoid using sequential characters",
     COMMON_PASSWORD: "Avoid using common passwords",
   };
 
@@ -125,7 +125,6 @@ function ResultCard() {
                       </Text>
                     ))
                   )}
-
                 </VStack>
               </Box>
 
@@ -149,7 +148,7 @@ function ResultCard() {
                         <FiAlertCircle />
                       </Box>
                     </TooltipComponent.Trigger>
-                    <TooltipComponent.Positioner placement="top">
+                    <TooltipComponent.Positioner>
                       <TooltipComponent.Content>
                         This is an estimate based on brute force cracking
                         techniques.
