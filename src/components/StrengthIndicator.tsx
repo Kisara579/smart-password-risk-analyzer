@@ -8,7 +8,10 @@ interface StrengthProps {
 }
 
 function StrengthIndicator({ strength }: StrengthProps) {
+
   let fillcolor: string;
+  
+
   if (!strength) {
     fillcolor = "gray.300";
   } else if (strength.value === "weak") {
@@ -20,19 +23,23 @@ function StrengthIndicator({ strength }: StrengthProps) {
   } else if (strength.value === "very-strong") {
     fillcolor = "green.400";
   }
+
+  
   return (
     <>
       <VStack>
         <Flex width={"100%"} gap={"10px"} alignItems={"center"} height={"10px"}>
-          {[1, 2, 3, 4].map((block) => (
-            <Box
-              key={block}
-              width={"calc((100%)/10)"}
-              height={"5px"}
-              bg={strength && strength.id >= block ? fillcolor : "gray.300"}
+          {[1, 2, 3, 4].map((block) => {
+            const isFilled = strength && strength.id >= block;
+            return (
+              <Box
+                key={block}
+                width={"calc((100%)/10)"}
+                height={"5px"}
+                bg={isFilled ? fillcolor : "gray.300"}
               borderRadius={"10px"}
             />
-          ))}
+          )})}
 
           <Text marginLeft={"auto"}>{strength ? strength.value : ""}</Text>
         </Flex>

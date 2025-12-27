@@ -19,13 +19,21 @@ const strengthOptions: Options<string> = [
   { id: 4, value: "very-strong", minDiversity: 4, minLength: 10 },
 ];
 
-function PasswordInput() {
+interface PasswordInputProps {
+  password: string;
+  setPassword: (value: string) => void;
+}
+
+function PasswordInput({ password, setPassword }: PasswordInputProps) {
   const [show, setshow] = useState(false);
-  const [password, setPassword] = useState("");
 
   const strength = useMemo(() => {
     if (!password) return null;
-    return passwordStrength(password, strengthOptions);
+    const result = passwordStrength(password, strengthOptions);
+    return {
+      value: result.value as "weak" | "medium" | "strong" | "very-strong",
+      id: result.id,
+    };
   }, [password]);
 
   return (
@@ -35,6 +43,7 @@ function PasswordInput() {
           <InputGroup width="100%">
             <Flex flexDirection={"row"} position={"relative"} width="100%">
               <Input
+                autoComplete="new-password"
                 placeholder="Enter Your Password"
                 type={show ? "text" : "password"}
                 paddingRight={"5rem"}
@@ -56,7 +65,7 @@ function PasswordInput() {
               </InputElement>
             </Flex>
           </InputGroup>
-          <StrengthIndicator strength={strength} />
+          <StrengthIndicator strength={strength || undefined} />
         </Stack>
       </Field.Root>
     </>
