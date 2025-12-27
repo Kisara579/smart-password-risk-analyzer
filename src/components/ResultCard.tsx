@@ -1,7 +1,8 @@
 import { useState } from "react";
 import PasswordInput from "./PasswordInput";
 import { analyzePassword } from "../utils/analyzePassword";
-import { Card, VStack, Button, Text } from "@chakra-ui/react";
+import { Card, VStack, Button, Text, Box, Tooltip } from "@chakra-ui/react";
+import { FiAlertCircle } from "react-icons/fi";
 
 function ResultCard() {
   const [password, setPassword] = useState("");
@@ -10,6 +11,34 @@ function ResultCard() {
     issues: string[];
     crackTime: string;
   } | null>(null);
+
+  let riskLabel = "";
+  let riskBg = "gray.500";
+
+  if (analysis) {
+    if (analysis.score >= 70) {
+      riskLabel = "Low Risk";
+      riskBg = "green.600";
+    } else if (analysis.score >= 40) {
+      riskLabel = "Medium Risk";
+      riskBg = "orange.600";
+    } else {
+      riskLabel = "High Risk";
+      riskBg = "red.600";
+    }
+  }
+
+  const issueMessages: Record<string, string> = {
+    NO_UPPERCASE: "Add at least one uppercase letter",
+    NO_LOWERCASE: "Add at least one lowercase letter",
+    NO_NUMBER: "Add at least one number",
+    NO_SYMBOL: "Add at least one symbol",
+    TOO_SHORT: "Password is too short",
+    NO_SPECIAL_CHAR: "Add at least one special character",
+    REPETED_CHARS: "Avoid using repeated characters",
+    SEQUENTIAL_CHARS: "Avoid using sequential characters",
+    COMMON_PASSWORD: "Avoid using common passwords",
+  };
 
   const handleAnalyze = () => {
     const result = analyzePassword(password);
@@ -35,10 +64,89 @@ function ResultCard() {
           </Button>
 
           {analysis && (
-            <VStack align="start" gap={"10px"} margin={"1rem"}>
-              <Text>Score: {analysis.score}</Text>
-              <Text>Issues: {analysis.issues.join(", ")}</Text>
-              <Text>Estimated Crack Time: {analysis.crackTime}</Text>
+            <VStack
+              align="start"
+              gap={"10px"}
+              marginTop={"1rem"}
+              bg={"white"}
+              padding={"1.5rem"}
+              borderWidth={"1px"}
+              borderRadius={"10px"}
+              borderColor={"gray.300"}
+            >
+              <Box
+                bg={riskBg}
+                width={"100%"}
+                padding={"0.5rem"}
+                borderRadius={"8px"}
+              >
+                <Text
+                  fontWeight={"bold"}
+                  fontSize={"lg"}
+                  color={"white"}
+                  textAlign={"center"}
+                >
+                  {riskLabel}
+                </Text>
+              </Box>
+              <Box
+                width="100%"
+                padding="0.75rem"
+                borderRadius="8px"
+                bg="gray.100"
+              >
+                <Text fontWeight="bold">
+                  Strength Score:{" "}
+                  <Text as="span" color="teal.600">
+                    {analysis.score}/100
+                  </Text>
+                </Text>
+              </Box>
+              <Box width={"100%"}>
+                <Text fontWeight={"bold"} marginBottom={"0.25rem"}>
+                  Analyze Details
+                </Text>
+                <VStack align="start" gap={"1px"}>
+                  {analysis.issues.length === 0 ? (
+                    <Text color="green.600" fontWeight="bold">
+                      No issues found
+                    </Text>
+                  ) : (
+                    analysis.issues.map((issue, index) => (
+                      <Text key={index} color="red.600">
+                        • {issueMessages[issue] || issue}
+                      </Text>
+                    ))
+                  )}
+                </VStack>
+              </Box>
+
+              <Box
+                width={"100%"}
+                padding={"0.75rem"}
+                borderRadius={"8px"}
+                bg={"blue.50"}
+              >
+                <Tooltip.Root>
+                  <Tooltip.Trigger asChild>
+                    <Box cursor="pointer">
+                      <FiAlertCircle />
+                    </Box>
+                  </Tooltip.Trigger>
+
+                  <Tooltip.Content>
+                    This is an estimate based on brute force cracking
+                    techniques.
+                  </Tooltip.Content>
+                </Tooltip.Root>
+
+                <Text fontWeight="bold">
+                  Estimated Crack Time :{" "}
+                  <Text as="span" color="blue.700">
+                    {analysis.crackTime}
+                  </Text>
+                </Text>
+              </Box>
             </VStack>
           )}
         </Card.Body>
