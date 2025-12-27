@@ -8,17 +8,20 @@ function App() {
         minHeight={"100vh"}
         justifyContent={"center"}
         alignContent={"center"}
+        paddingLeft={"10px"}
+        paddingRight={"10px"}
+        paddingBottom={"10px"}
       >
-        <Stack gap={"0"} textAlign={"center"} padding={"1rem"}>
+        <Stack gap={"0"} textAlign={"center"} padding={{base: "0.5rem", md: "1rem"}}>
           <Heading
-            size="3xl"
+            size={{ base: "xl", md: "3xl" }}
             color="teal.600"
             letterSpacing={"tight"}
             padding={"0.2rem"}
           >
             Smart Password Risk Analyzer
           </Heading>
-          <Text fontSize="md" color="fg.muted">
+          <Text fontSize={{ base: "sm", md: "md" }} color="fg.muted">
             Evaluate the strength and vulnerability of your credentials.
           </Text>
         </Stack>
