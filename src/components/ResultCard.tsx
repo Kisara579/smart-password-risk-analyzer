@@ -1,7 +1,14 @@
 import { useState } from "react";
 import PasswordInput from "./PasswordInput";
 import { analyzePassword } from "../utils/analyzePassword";
-import { Card, VStack, Button, Text, Box, Tooltip } from "@chakra-ui/react";
+import {
+  Card,
+  VStack,
+  Button,
+  Text,
+  Box,
+  Tooltip as TooltipComponent,
+} from "@chakra-ui/react";
 import { FiAlertCircle } from "react-icons/fi";
 
 function ResultCard() {
@@ -118,34 +125,45 @@ function ResultCard() {
                       </Text>
                     ))
                   )}
+
                 </VStack>
               </Box>
 
               <Box
-                width={"100%"}
-                padding={"0.75rem"}
-                borderRadius={"8px"}
-                bg={"blue.50"}
+                width="100%"
+                padding="0.75rem"
+                borderRadius="8px"
+                bg="blue.50"
               >
-                <Tooltip.Root>
-                  <Tooltip.Trigger asChild>
-                    <Box cursor="pointer">
-                      <FiAlertCircle />
-                    </Box>
-                  </Tooltip.Trigger>
+                <Box display="flex" alignItems="center" gap="6px">
+                  <TooltipComponent.Root>
+                    <TooltipComponent.Trigger asChild>
+                      <Box
+                        cursor="pointer"
+                        color="blue.600"
+                        display="inline-flex"
+                        alignItems="center"
+                        justifyContent="center"
+                        width="1.25rem"
+                      >
+                        <FiAlertCircle />
+                      </Box>
+                    </TooltipComponent.Trigger>
+                    <TooltipComponent.Positioner placement="top">
+                      <TooltipComponent.Content>
+                        This is an estimate based on brute force cracking
+                        techniques.
+                      </TooltipComponent.Content>
+                    </TooltipComponent.Positioner>
+                  </TooltipComponent.Root>
 
-                  <Tooltip.Content>
-                    This is an estimate based on brute force cracking
-                    techniques.
-                  </Tooltip.Content>
-                </Tooltip.Root>
-
-                <Text fontWeight="bold">
-                  Estimated Crack Time :{" "}
-                  <Text as="span" color="blue.700">
-                    {analysis.crackTime}
+                  <Text fontWeight="bold">
+                    Estimated Crack Time:{" "}
+                    <Text as="span" color="blue.700">
+                      {analysis.crackTime}
+                    </Text>
                   </Text>
-                </Text>
+                </Box>
               </Box>
             </VStack>
           )}
